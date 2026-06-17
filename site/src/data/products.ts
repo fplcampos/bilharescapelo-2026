@@ -499,7 +499,7 @@ export function getCategoryById(id: string) {
 }
 
 export function getProductById(id: string) {
-  return PRODUCTS.find((p) => p.id === id);
+  return PRODUCTS.find((p) => p.id.toLowerCase() === id.toLowerCase());
 }
 
 export function getProductsByCategory(categoryId: string) {

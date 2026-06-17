@@ -1,11 +1,19 @@
-import { Link, useParams } from "react-router";
+import { Link, useParams, useNavigation } from "react-router";
 import { ChevronRight, ArrowLeft, MessageCircle, Tag } from "lucide-react";
 import { getCategoryById, getProductsByCategory, CATEGORIES, formatPrice } from "../data/products";
+import ProductListSkeleton from "../components/ProductListSkeleton";
 
 export default function CategoryPage() {
   const { categoryId } = useParams<{ categoryId: string }>();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
+
   const category = getCategoryById(categoryId ?? "");
   const products = getProductsByCategory(categoryId ?? "");
+
+  if (isLoading) {
+    return <ProductListSkeleton />;
+  }
 
   if (!category) {
     return (
